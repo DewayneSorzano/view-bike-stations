@@ -1,3 +1,3 @@
 # view-bike-stations
 This script takes a csv file containing bike stations and creates point features in ArcGIS Pro to represent them.
-It then adds a 1/8 mile buffer to each station to represent the proximity to nearby buildings.
+It then adds a 1/8th mile buffer to each station to represent the proximity to nearby buildings.
