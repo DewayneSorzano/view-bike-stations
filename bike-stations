@@ -1,0 +1,43 @@
+""""
+Author: Dewayne Sorzano
+
+Purpose: This script takes a csv file of bike stations and creates point features
+to represent each one.  It also adds a 1/8 mile buffer to each station to show the
+proximity to various buildings.
+
+"""
+import arcpy
+
+gdb = "C:\\temp\\Mbike Station Map.gdb\\"
+csv_path = "C:\\temp\\Data\\"
+
+arcpy.env.overwriteOutput = True
+
+arcpy.ImportToolbox(r"c:\program files\arcgis\pro\Resources\ArcToolbox\toolboxes\Data Management Tools.tbx")
+csv = f"{csv_path}mBike Lat Long.csv"
+mobile_bike_stations = f"{gdb}mobile_bike_stations"
+
+try:
+    print("Exporting csv to gdb.")
+    arcpy.conversion.ExportTable(in_table=csv, out_table=mobile_bike_stations)
+
+    # Process: XY Table To Point (XY Table To Point) (management)
+    stations = f"{gdb}stations"
+
+    # WKID of GCS 1984 is 4326
+    print("Creating Bike Stations")
+    arcpy.management.XYTableToPoint(in_table=mobile_bike_stations, out_feature_class=stations,
+                                    x_field="Longitude", y_field="Latitude",
+                                    coordinate_system=arcpy.SpatialReference(4326))
+
+    # Process: Buffer (Buffer) (analysis)
+    stations_Buffer = f"{gdb}eighth_mile_Buffer"
+    print("Creating 1/8th mile buffer.")
+    arcpy.analysis.Buffer(in_features=stations, out_feature_class=stations_Buffer,
+                          buffer_distance_or_field="0.125 Miles", line_side="FULL",
+                          line_end_type="ROUND", dissolve_option="NONE", method="PLANAR")
+
+    print("Process complete!")
+
+except Exception as x:
+    print(f"Error, script failed to run. \nError: {x}")
