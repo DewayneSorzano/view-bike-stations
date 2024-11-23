@@ -2,7 +2,7 @@
 Author: Dewayne Sorzano
 
 Purpose: This script takes a csv file of bike stations and creates point features
-to represent each one.  It also adds a 1/8 mile buffer to each station to show the
+to represent each one.  It also adds a 1/8th mile buffer to each station to show the
 proximity to various buildings.
 
 """
