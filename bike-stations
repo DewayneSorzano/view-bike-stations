@@ -21,7 +21,7 @@ try:
     print("Exporting csv to gdb.")
     arcpy.conversion.ExportTable(in_table=csv, out_table=mobile_bike_stations)
 
-    # Process: XY Table To Point (XY Table To Point) (management)
+    # Create the point feature class
     stations = f"{gdb}stations"
 
     # WKID of GCS 1984 is 4326
@@ -30,7 +30,7 @@ try:
                                     x_field="Longitude", y_field="Latitude",
                                     coordinate_system=arcpy.SpatialReference(4326))
 
-    # Process: Buffer (Buffer) (analysis)
+    # Create the buffer
     stations_Buffer = f"{gdb}eighth_mile_Buffer"
     print("Creating 1/8th mile buffer.")
     arcpy.analysis.Buffer(in_features=stations, out_feature_class=stations_Buffer,
