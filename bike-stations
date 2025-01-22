@@ -8,7 +8,7 @@ proximity to various buildings.
 """
 import arcpy
 
-gdb = "C:\\temp\\Mbike Station Map.gdb\\"
+gdb = "C:\\temp\\MBike Station Map.gdb\\"
 csv_path = "C:\\temp\\Data\\"
 
 arcpy.env.overwriteOutput = True
